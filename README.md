@@ -89,38 +89,37 @@ Alternatively, you can directly call `FinalInteract()` in custom input setups.
 
 ---
 
-## ⚙️ Interactable Actor Settings
+## ⚙️ Interactable Base – Settings Reference (With Conditions)
 
 These settings are available when working with `AInteractableActorBase`. The panel is dynamic and changes based on selected enum options like `Action Type` and `Widget Type`.
 
----
 
-### 🧩 Main Settings
 
-| Property | Type | Description |
-|---------|------|-------------|
-| `bUseBuiltInAction` | `bool` | Enables built-in behavior (e.g., toggle actor, show widget). Disabling lets you implement your own logic. |
-| `ActionType` | `EActionType` | Defines which behavior to run when interacted with. Options include `WidgetAction`, `ToggleActor`, `TimelineMove`, etc. |
-| `bUseAnimation` | `bool` | Enables animation montage playback during interaction. |
-| `AnimationToPlay` | `UAnimMontage*` | The animation to play if `bUseAnimation` is enabled. |
-| `bCanMoveDuringMontage` | `bool` | Allows player movement during animation. |
-| `bFullBodyAnim` | `bool` | Plays the animation as a full-body montage. |
-| `bControlledByOtherInteractable` | `bool` | When true, this actor is triggered remotely (e.g., by a relay actor). |
-| `bRequiresManualTrigger` | `bool` | Actor must be triggered manually rather than by direct player input. |
-| `WidgetType` | `EWidgetType` | Specifies which visual interaction widget to show (e.g., tooltip, radial progress, icon). |
-| `CustomWidgetClass` | `TSubclassOf<UUserWidget>` | If `WidgetType == CustomWidget`, use this to assign a custom UMG class. |
-| `WidgetOffset` | `FVector` | Offset position of the widget relative to the actor. |
-| `WidgetScale` | `FVector` | Controls the 3D size of the widget when in world space. |
-| `ScreenSpaceType` | `EWidgetSpace` | Determines if the widget is rendered in screen or world space. |
-| `bChangeWidgetPitch` | `bool` | Allows the widget to rotate in pitch (world space only). |
-| `bChangeWidgetRoll` | `bool` | Allows the widget to rotate in roll (world space only). |
-| `bChangeWidgetYaw` | `bool` | Allows the widget to rotate in yaw (world space only). |
-| `bShowWidgetShadows` | `bool` | Enables shadow rendering on the widget. |
-| `InteractText` | `FString` | Text shown inside radial progress widgets. |
-| `InteractToolTip` | `FString` | Text used for tooltip-style widgets. |
-| `Icon` | `UTexture2D*` | Image used in icon-based prompts. |
-| `WidgetToOpen` | `TSubclassOf<UUserWidget>` | Widget to open when `ActionType == WidgetAction`. |
-| `TargetActorToToggle` | `AActor*` | Used for `ToggleActor` type to toggle visibility or state. |
+| Property | Type | Description | Visibility Condition |
+|---------|------|-------------|----------------------|
+| `bUseBuiltInAction` | `bool` | Enables built-in behavior (e.g., toggle actor, show widget). Disabling allows you to fully override interaction via `OnInteract()`. | Always visible *(if `bShowCoreSettings` is true)* |
+| `ActionType` | `EActionType` | Defines which behavior to run when interacted with. Options include `WidgetAction`, `ToggleActor`, `TimelineMove`, etc. | Visible only if `bUseBuiltInAction` **and** `bShowCoreSettings` are true |
+| `bUseAnimation` | `bool` | Enables animation support. Additional animation-related settings appear when this is true. | Always visible |
+| `AnimationToPlay` | `UAnimMontage*` | Animation to play when `bUseAnimation` is enabled. | Only shown if `bUseAnimation` is true |
+| `bCanMoveDuringMontage` | `bool` | Allows player to move during animation playback. | Only shown if `bUseAnimation` is true |
+| `bFullBodyAnim` | `bool` | Treats the animation montage as full-body. | Only shown if `bUseAnimation` is true |
+| `bControlledByOtherInteractable` | `bool` | Prevents this actor from handling its own interaction. Typically used when another actor (like a relay) is in control. | Always visible *(if `bShowCoreSettings` is true)* |
+| `bRequiresManualTrigger` | `bool` | Requires the actor to be triggered by external input or systems (e.g., interaction relay). | Always visible |
+| `WidgetType` | `EWidgetType` | Selects the visual interaction widget (e.g., radial, tooltip, custom). | Hidden if `bControlledByOtherInteractable` is true |
+| `CustomWidgetClass` | `TSubclassOf<UUserWidget>` | Assign a UMG class to use when `WidgetType == CustomWidget`. | Only visible when `WidgetType == CustomWidget` |
+| `WidgetOffset` | `FVector` | Adjusts the position of the widget relative to the actor. | Hidden if `bControlledByOtherInteractable` is true |
+| `WidgetScale` | `FVector` | Controls the size of the widget in 3D. | Only visible if `ScreenSpaceType == World` and `bControlledByOtherInteractable == false` |
+| `ScreenSpaceType` | `EWidgetSpace` | Toggles between world space and screen space rendering for widgets. | Hidden if `bControlledByOtherInteractable` is true |
+| `bChangeWidgetPitch` | `bool` | Allows the widget to rotate in pitch to face the player. | Visible only if `ScreenSpaceType == World` and not controlled by another actor |
+| `bChangeWidgetRoll` | `bool` | Allows the widget to rotate in roll to face the player. | Same as above |
+| `bChangeWidgetYaw` | `bool` | Allows the widget to rotate in yaw to face the player. | Same as above |
+| `bShowWidgetShadows` | `bool` | Toggles basic dynamic shadows on the widget. | Hidden if `bControlledByOtherInteractable` is true |
+| `InteractText` | `FString` | Text displayed in radial progress widgets. | Only visible when `WidgetType == RadialProgress` and not relay-controlled |
+| `InteractToolTip` | `FString` | Text shown in tooltip widgets. | Only visible when `WidgetType == ContextToolTip` and not relay-controlled |
+| `Icon` | `UTexture2D*` | Icon used in icon-based widgets. | Only visible when `WidgetType == IconBasedPrompt` and not relay-controlled |
+| `WidgetToOpen` | `TSubclassOf<UUserWidget>` | Widget to open when `ActionType == WidgetAction`. Ignored if using custom widget. | Only visible if `ActionType == WidgetAction` and `bUseBuiltInAction == true` and `WidgetType != CustomWidget` |
+| `TargetActorToToggle` | `AActor*` | Actor to toggle visibility/state when `ActionType == ToggleActor`. | Only visible if `ActionType == ToggleActor` and `bUseBuiltInAction == true` |
+
 ---
 
 ### 🎬 Animation
