@@ -11,6 +11,8 @@ A highly customizable interaction system built for Unreal Engine 5. This plugin 
 - [⚙️ Interactable Base – Settings Reference](#️-interactable-base--settings-reference-with-conditions)
 - [🎬 Animation](#-animation)
 - [🔁 Relay Actor Settings](#-interaction-relay-actor--settings-reference-with-conditions)
+- - [📸 Showcase / Previews](#-showcase--previews)
+
 
 
 ---
@@ -175,6 +177,28 @@ While `AInteractionRelayActor` inherits from `AInteractableActorBase`, certain s
 - All **Animation Settings** (`bUseAnimation`, `AnimationToPlay`, `bFullBodyAnim`) are still available. Relays can play animations like button presses before triggering other actors.
 
 💡 *Tip: Use visual widgets and animations to represent buttons, switches, levers, and other trigger points—but let the interaction logic be forwarded to the real targets.*
+
+
+---
+
+## 📸 Showcase / Previews
+
+## Below are visual examples of how the Modular Interactions Plugin looks in action and how different settings affect the behavior of interactables and relays.
+
+### 🎯 Widget Types Preview
+
+Here's how each widget type appears when activated:
+
+![image 22](https://github.com/user-attachments/assets/1c83bcff-89ca-4462-93a4-bd798994a260)
+![image 23](https://github.com/user-attachments/assets/94e803f3-df83-434d-9176-2dff329fbe8b)
+
+---
+
+### 🧱 Relay Actor in Action
+
+A button actor triggering a door via relay system:
+
+![image 24](https://github.com/user-attachments/assets/04fb321a-f8d3-4c96-929a-85404d7d18f1)
 
 
 ---
