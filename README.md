@@ -25,11 +25,11 @@ A highly customizable interaction system built for Unreal Engine 5. This plugin 
 
 ## 🚀 Getting Started
 
-### 1. Enable Plugin
+## 1. Enable Plugin
 
 Go to `Edit > Plugins` and enable the **Modular Interactions** plugin.
 
-### 2. Add the Interaction Handler to Your Character
+## 2. Add the Interaction Handler to Your Character
 
 Add the `BP_InteractionHandlerComponent` to **your main character**.  
 This component is required and handles most of the core interaction logic. It must be added directly to the player’s character so the plugin can consistently reference it during interaction.
@@ -44,7 +44,7 @@ IE: `InteractableActorBase`, `InteractionRelayActor`
 
 ![InteractBPVisual](https://github.com/user-attachments/assets/1839f81b-7fc2-4081-ae07-531d29983d12)
 
-### 3. Configure Interaction Settings
+## 3. Configure Interaction Settings
 
 Each interactable actor includes a modular, dynamic details panel for setup:
 
@@ -59,7 +59,7 @@ Each interactable actor includes a modular, dynamic details panel for setup:
 
 This system keeps clutter to a minimum and only shows settings that are relevant to your current configuration.
 
-### 4. Relay Interactable Actors (Optional)
+## 4. Relay Interactable Actors (Optional)
 
 Relay actors (`AInteractionRelayActor`) are designed to **remotely trigger other interactables**.  
 These are ideal for buttons, control panels, switches, and similar use cases.
@@ -75,7 +75,7 @@ Relay-specific settings allow you to:
 ![InteractionRelaySettings](https://github.com/user-attachments/assets/20d4fc19-c5cd-410a-8a11-f033c7e7ea95)
 
 
-### 5. Hook Up Inputs
+## 5. Hook Up Inputs
 
 Make sure your character has the correct input mappings via **Enhanced Input**.  
 Alternatively, you can directly call `FinalInteract()` in custom input setups.
