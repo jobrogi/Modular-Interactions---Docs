@@ -29,8 +29,6 @@ A highly customizable interaction system built for Unreal Engine 5. This plugin 
 
 Go to `Edit > Plugins` and enable the **Modular Interactions** plugin.
 
----
-
 ### 2. Add the Interaction Handler to Your Character
 
 Add the `BP_InteractionHandlerComponent` to **your main character**.  
@@ -45,8 +43,6 @@ Once the component is added, you're ready to begin setting up interactables:
 IE: `InteractableActorBase`, `InteractionRelayActor`
 
 ![InteractBPVisual](https://github.com/user-attachments/assets/1839f81b-7fc2-4081-ae07-531d29983d12)
-
----
 
 ### 3. Configure Interaction Settings
 
@@ -63,8 +59,6 @@ Each interactable actor includes a modular, dynamic details panel for setup:
 
 This system keeps clutter to a minimum and only shows settings that are relevant to your current configuration.
 
----
-
 ### 4. Relay Interactable Actors (Optional)
 
 Relay actors (`AInteractionRelayActor`) are designed to **remotely trigger other interactables**.  
@@ -80,7 +74,6 @@ Relay-specific settings allow you to:
 
 ![InteractionRelaySettings](https://github.com/user-attachments/assets/20d4fc19-c5cd-410a-8a11-f033c7e7ea95)
 
----
 
 ### 5. Hook Up Inputs
 
@@ -130,18 +123,33 @@ These settings are available when working with `AInteractableActorBase`. The pan
 
 ---
 
-### 🖼 Widget Settings
+## 🔁 Interaction Relay Actor – Settings Reference (With Conditions)
 
-| Property | Description |
-|---------|-------------|
-| **Widget Type** | The visual style for interaction. Options include `Tooltip`, `Radial Progress`, `Press Prompt`, `Icon`, and `Custom`. |
-| **Custom Widget Class** | When `Widget Type` is set to `Custom`, assign your custom `UUserWidget` class here. |
-| **Widget Offset** | 3D offset of the widget in world or screen space. |
-| **Widget Scale** | Scale of the widget in the viewport or 3D space. |
-| **Screen Space Type** | Switch between `World` or `Screen` space rendering. |
-| **Change Widget Pitch / Roll / Yaw** | Toggles whether to allow rotation of the widget in each axis. |
-| **Show Widget Shadows** | Enables basic dynamic shadow casting on the widget. |
-| **Interact Text** | The text shown inside the widget (e.g., "Open", "Pick Up", etc.). |
+Relay actors inherit from `AInteractableActorBase` but are used to **trigger other interactables**, not perform interaction logic themselves. As such, some base class settings (e.g., animation, toggle actor) are **automatically disabled or ignored**.
+
+### 🔗 Relay-Specific Settings
+
+| Property | Type | Description | Visibility Condition |
+|----------|------|-------------|----------------------|
+| `TargetActors` | `TArray<AInteractableActorBase*>` | List of interactable actors this relay will trigger when used. | Always visible |
+| `bTriggerAllTargets` | `bool` | When true, all actors in the `TargetActors` list will be triggered. When false, only one is triggered by index. | Always visible |
+| `TargetIndexToTrigger` | `int32` | The index of the actor to trigger (used when `bTriggerAllTargets` is false). | Only visible if `bTriggerAllTargets == false` |
+| `InteractableToAttachTo` | `AInteractableActorBase*` | If set, this relay will follow and optionally attach to the target actor. | Always visible |
+| `AttachmentMode` | `ESimpleAttachmentMode` | Defines how this relay should attach to the specified target (`SnapAll`, `KeepWorldAll`, `KeepRelativeAll`). | Always visible |
+
+### ⚠️ Base Class Settings Ignored by Relay Actors
+
+These inherited settings are **not used** in the context of relay actors and will typically have no effect:
+
+| Ignored Setting | Reason |
+|------------------|--------|
+| `TargetActorToToggle` | Relay does not toggle itself or its own targets via this property. |
+| `AnimationToPlay` | Relay actors do not play animations on interaction. |
+| `bUseAnimation` / `bCanMoveDuringMontage` / `bFullBodyAnim` | All animation settings are irrelevant for relay actors. |
+| `WidgetToOpen` | Relay does not open its own widgets via `WidgetAction`. It is meant to pass interaction logic to others. |
+
+💡 *Tip: You can still use `WidgetType` and other UI properties to give the relay a visible prompt (e.g., a button icon or tooltip), but its logic should focus on forwarding interaction to other actors.*
+
 
 ---
 
