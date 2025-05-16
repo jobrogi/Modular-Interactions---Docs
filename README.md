@@ -38,7 +38,8 @@ Once the component is added, you're ready to begin setting up interactables:
 📌 *See the image below for a reference of available classes.*
 
 
-![Interaction Classes Preview](InteractBPVisual.png)
+![Interaction Classes Preview](Modular-Interactions---Docs/InteractBPVisual.png)
+
 
 
 ---
