@@ -36,7 +36,10 @@ Once the component is added, you're ready to begin setting up interactables:
 - Use `AInteractionRelayActor` to control one or more interactables remotely — great for switches, buttons, and other external triggers.
 
 📌 *See the image below for a reference of available classes.*
+
+
 ![Interaction Classes Preview](InteractBPVisual.png)
+
 
 ---
 
