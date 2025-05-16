@@ -117,9 +117,27 @@ These settings are available when working with `AInteractableActorBase`. The pan
 
 ### 🎬 Animation
 
+Unlike traditional systems that automatically handle montages, the Modular Interactions Plugin gives **full animation control to the developer**.  
+The plugin provides basic configuration fields and overrideable events so you can wire up animation however you'd like.
+
 | Property | Description |
 |---------|-------------|
-| **Use Animation** | Enables animation-related settings (e.g., montage playback). More settings will appear once this is enabled. |
+| `Use Animation` | Enables the animation system for this interactable. Does not auto-play animations—it unlocks the properties below. |
+| `AnimationToPlay` | Developer-assigned `UAnimMontage` reference. You are responsible for manually triggering this montage. |
+| `bCanMoveDuringMontage` | Optional flag you can reference in your own logic to allow player movement during interaction. |
+| `bFullBodyAnim` | Optional flag for indicating full-body playback—purely informational, you must implement how this affects playback.
+
+To use animations, implement the following **overrideable interface events**:
+
+| Event | Purpose |
+|-------|---------|
+| `Play Montage Request` | Called when interaction starts. Use this to play your `AnimationToPlay` montage. |
+| `Montage Playing` | Fires when the montage begins. |
+| `Montage Completed` | Fires when the montage ends. Use this to finalize interaction behavior (e.g., opening a door after animation completes).
+
+📌 *These events must be implemented manually in Blueprint or C++. No animation is triggered by default.*
+
+![MontageOverideEvents](https://github.com/user-attachments/assets/d25a482c-cff1-4627-9bb4-eb4b1ffe6b98)
 
 ---
 
@@ -137,27 +155,22 @@ Relay actors inherit from `AInteractableActorBase` but are used to **trigger oth
 | `InteractableToAttachTo` | `AInteractableActorBase*` | If set, this relay will follow and optionally attach to the target actor. | Always visible |
 | `AttachmentMode` | `ESimpleAttachmentMode` | Defines how this relay should attach to the specified target (`SnapAll`, `KeepWorldAll`, `KeepRelativeAll`). | Always visible |
 
-### ⚠️ Base Class Settings Ignored by Relay Actors
+### ⚠️ Base Class Settings Ignored or Overridden by Relay Actors
 
-These inherited settings are **not used** in the context of relay actors and will typically have no effect:
+While `AInteractionRelayActor` inherits from `AInteractableActorBase`, certain settings are internally overridden or locked to avoid conflicts with the relay’s purpose (i.e., triggering other actors).
 
-| Ignored Setting | Reason |
-|------------------|--------|
-| `TargetActorToToggle` | Relay does not toggle itself or its own targets via this property. |
-| `AnimationToPlay` | Relay actors do not play animations on interaction. |
-| `bUseAnimation` / `bCanMoveDuringMontage` / `bFullBodyAnim` | All animation settings are irrelevant for relay actors. |
-| `WidgetToOpen` | Relay does not open its own widgets via `WidgetAction`. It is meant to pass interaction logic to others. |
+| Ignored or Locked Setting | Category | Reason |
+|---------------------------|----------|--------|
+| `bUseBuiltInAction` | Main Settings | Relay actors override interaction logic to relay behavior, not perform their own. This setting is disabled. |
+| `ActionType` | Main Settings | Relay actors do not execute their own action types; instead they forward interaction to others. |
+| `bControlledByOtherInteractable` | Main Settings | Relays are intended to **control** other actors, not be controlled themselves. This is forcibly disabled. |
 
-💡 *Tip: You can still use `WidgetType` and other UI properties to give the relay a visible prompt (e.g., a button icon or tooltip), but its logic should focus on forwarding interaction to other actors.*
+✅ **Allowed Settings**:
+- `WidgetType`, `CustomWidgetClass`, and all other **Widget Settings** are supported. You can show tooltips, icons, prompts, etc.
+- All **Animation Settings** (`bUseAnimation`, `AnimationToPlay`, `bFullBodyAnim`) are still available. Relays can play animations like button presses before triggering other actors.
 
+💡 *Tip: Use visual widgets and animations to represent buttons, switches, levers, and other trigger points—but let the interaction logic be forwarded to the real targets.*
 
----
-
-### 🧩 Widget Action Settings
-
-| Property | Description |
-|---------|-------------|
-| **Widget to Open** | Only used if `Action Type == Widget Action`. Defines the widget to display during interaction (e.g., inventory, dialogue, panel). |
 
 ---
 
