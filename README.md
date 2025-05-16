@@ -1,6 +1,9 @@
 # 📦 Modular Interactions Plugin
 
-DISCORD LINK: https://discord.gg/YvME6jG8
+
+[DISCORD SUPPORT LINK HERE](https://discord.gg/YvME6jG8)
+[FAB LINK HERE]()
+
 
 A highly customizable interaction system built for Unreal Engine 5. This plugin provides developers with a modular, extensible foundation for adding interaction logic to actors, complete with dynamic widgets, reusable behavior types, and clean C++/Blueprint integration.
 
