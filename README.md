@@ -36,11 +36,9 @@ Once the component is added, you're ready to begin setting up interactables:
 - Use `AInteractionRelayActor` to control one or more interactables remotely — great for switches, buttons, and other external triggers.
 
 📌 *See the image below for a reference of available classes.*
-
+IE: InteractableActorBase, InteractionRelayActor
 
 ![InteractBPVisual](https://github.com/user-attachments/assets/1839f81b-7fc2-4081-ae07-531d29983d12)
-
-
 
 ---
 
@@ -73,6 +71,8 @@ Relay-specific settings allow you to:
 - Control how it aligns and snaps in the world
 
 📌 *See the image below for an example of relay actor configuration.*
+
+![InteractionRelaySettings](https://github.com/user-attachments/assets/20d4fc19-c5cd-410a-8a11-f033c7e7ea95)
 
 ---
 
