@@ -89,20 +89,6 @@ Alternatively, you can directly call `FinalInteract()` in custom input setups.
 
 ---
 
-
----
-
-## 🧠 How It Works
-
-The plugin routes all interaction logic through the parent class:
-```cpp
-// Called when player interacts with actor
-void AInteractableActorBase::FinalInteract()
-{
-    PreInteract();
-    OnInteract(); // Child classes can override this
-}
-```
 ## ⚙️ Interactable Actor Settings
 
 These settings are available when working with `AInteractableActorBase`. The panel is dynamic and changes based on selected enum options like `Action Type` and `Widget Type`.
@@ -111,13 +97,30 @@ These settings are available when working with `AInteractableActorBase`. The pan
 
 ### 🧩 Main Settings
 
-| Property | Description |
-|---------|-------------|
-| **Use Built-in Action** | Enables the default logic for the selected `Action Type`. When disabled, you must implement `OnInteract()` manually. |
-| **Action Type** | Determines what kind of built-in behavior to perform. Options include: `Custom Event`, `Widget Action`, `Toggle Actor`, `Timeline Move`, `Timeline Rotate`, and more. |
-| **Controlled by Other Interactable** | When enabled, this actor will not run its own interaction logic—it will wait to be triggered by another actor (like a relay). |
-| **Requires Manual Trigger** | Prevents auto-firing on trace/hit detection. Useful for objects that should only trigger through another system. |
-
+| Property | Type | Description |
+|---------|------|-------------|
+| `bUseBuiltInAction` | `bool` | Enables built-in behavior (e.g., toggle actor, show widget). Disabling lets you implement your own logic. |
+| `ActionType` | `EActionType` | Defines which behavior to run when interacted with. Options include `WidgetAction`, `ToggleActor`, `TimelineMove`, etc. |
+| `bUseAnimation` | `bool` | Enables animation montage playback during interaction. |
+| `AnimationToPlay` | `UAnimMontage*` | The animation to play if `bUseAnimation` is enabled. |
+| `bCanMoveDuringMontage` | `bool` | Allows player movement during animation. |
+| `bFullBodyAnim` | `bool` | Plays the animation as a full-body montage. |
+| `bControlledByOtherInteractable` | `bool` | When true, this actor is triggered remotely (e.g., by a relay actor). |
+| `bRequiresManualTrigger` | `bool` | Actor must be triggered manually rather than by direct player input. |
+| `WidgetType` | `EWidgetType` | Specifies which visual interaction widget to show (e.g., tooltip, radial progress, icon). |
+| `CustomWidgetClass` | `TSubclassOf<UUserWidget>` | If `WidgetType == CustomWidget`, use this to assign a custom UMG class. |
+| `WidgetOffset` | `FVector` | Offset position of the widget relative to the actor. |
+| `WidgetScale` | `FVector` | Controls the 3D size of the widget when in world space. |
+| `ScreenSpaceType` | `EWidgetSpace` | Determines if the widget is rendered in screen or world space. |
+| `bChangeWidgetPitch` | `bool` | Allows the widget to rotate in pitch (world space only). |
+| `bChangeWidgetRoll` | `bool` | Allows the widget to rotate in roll (world space only). |
+| `bChangeWidgetYaw` | `bool` | Allows the widget to rotate in yaw (world space only). |
+| `bShowWidgetShadows` | `bool` | Enables shadow rendering on the widget. |
+| `InteractText` | `FString` | Text shown inside radial progress widgets. |
+| `InteractToolTip` | `FString` | Text used for tooltip-style widgets. |
+| `Icon` | `UTexture2D*` | Image used in icon-based prompts. |
+| `WidgetToOpen` | `TSubclassOf<UUserWidget>` | Widget to open when `ActionType == WidgetAction`. |
+| `TargetActorToToggle` | `AActor*` | Used for `ToggleActor` type to toggle visibility or state. |
 ---
 
 ### 🎬 Animation
