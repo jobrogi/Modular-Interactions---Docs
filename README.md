@@ -102,3 +102,52 @@ void AInteractableActorBase::FinalInteract()
     PreInteract();
     OnInteract(); // Child classes can override this
 }
+```
+## ⚙️ Interactable Actor Settings
+
+These settings are available when working with `AInteractableActorBase`. The panel is dynamic and changes based on selected enum options like `Action Type` and `Widget Type`.
+
+---
+
+### 🧩 Main Settings
+
+| Property | Description |
+|---------|-------------|
+| **Use Built-in Action** | Enables the default logic for the selected `Action Type`. When disabled, you must implement `OnInteract()` manually. |
+| **Action Type** | Determines what kind of built-in behavior to perform. Options include: `Custom Event`, `Widget Action`, `Toggle Actor`, `Timeline Move`, `Timeline Rotate`, and more. |
+| **Controlled by Other Interactable** | When enabled, this actor will not run its own interaction logic—it will wait to be triggered by another actor (like a relay). |
+| **Requires Manual Trigger** | Prevents auto-firing on trace/hit detection. Useful for objects that should only trigger through another system. |
+
+---
+
+### 🎬 Animation
+
+| Property | Description |
+|---------|-------------|
+| **Use Animation** | Enables animation-related settings (e.g., montage playback). More settings will appear once this is enabled. |
+
+---
+
+### 🖼 Widget Settings
+
+| Property | Description |
+|---------|-------------|
+| **Widget Type** | The visual style for interaction. Options include `Tooltip`, `Radial Progress`, `Press Prompt`, `Icon`, and `Custom`. |
+| **Custom Widget Class** | When `Widget Type` is set to `Custom`, assign your custom `UUserWidget` class here. |
+| **Widget Offset** | 3D offset of the widget in world or screen space. |
+| **Widget Scale** | Scale of the widget in the viewport or 3D space. |
+| **Screen Space Type** | Switch between `World` or `Screen` space rendering. |
+| **Change Widget Pitch / Roll / Yaw** | Toggles whether to allow rotation of the widget in each axis. |
+| **Show Widget Shadows** | Enables basic dynamic shadow casting on the widget. |
+| **Interact Text** | The text shown inside the widget (e.g., "Open", "Pick Up", etc.). |
+
+---
+
+### 🧩 Widget Action Settings
+
+| Property | Description |
+|---------|-------------|
+| **Widget to Open** | Only used if `Action Type == Widget Action`. Defines the widget to display during interaction (e.g., inventory, dialogue, panel). |
+
+---
+
