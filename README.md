@@ -1,12 +1,17 @@
 # 📦 Modular Interactions Plugin
+A highly customizable interaction system built for Unreal Engine 5. This plugin provides developers with a modular, extensible foundation for adding interaction logic to actors, complete with dynamic widgets, reusable behavior types, and clean C++/Blueprint integration.
 
 
 -[DISCORD SUPPORT LINK HERE](https://discord.gg/YvME6jG8)
 
 -[FAB LINK HERE]()
 
+## 📑 Table of Contents
+- [🚀 Getting Started](#-getting-started)
+- [⚙️ Interactable Base – Settings Reference](#️-interactable-base--settings-reference-with-conditions)
+- [🎬 Animation](#-animation)
+- [🔁 Relay Actor Settings](#-interaction-relay-actor--settings-reference-with-conditions)
 
-A highly customizable interaction system built for Unreal Engine 5. This plugin provides developers with a modular, extensible foundation for adding interaction logic to actors, complete with dynamic widgets, reusable behavior types, and clean C++/Blueprint integration.
 
 ---
 
