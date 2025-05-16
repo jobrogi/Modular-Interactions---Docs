@@ -11,7 +11,7 @@ A highly customizable interaction system built for Unreal Engine 5. This plugin 
 - [⚙️ Interactable Base – Settings Reference](#️-interactable-base--settings-reference-with-conditions)
 - [🎬 Animation](#-animation)
 - [🔁 Relay Actor Settings](#-interaction-relay-actor--settings-reference-with-conditions)
-- - [📸 Showcase / Previews](#-showcase--previews)
+- [📸 Showcase / Previews](#-showcase--previews)
 
 
 
