@@ -11,6 +11,7 @@ A highly customizable interaction system built for Unreal Engine 5. This plugin 
 - [⚙️ Interactable Base – Settings Reference](#️-interactable-base--settings-reference-with-conditions)
 - [🎬 Animation](#-animation)
 - [🔁 Relay Actor Settings](#-interaction-relay-actor--settings-reference-with-conditions)
+- [📦 Creating Custom Interactable Actors](#-creating-custom-interactable-actors)
 - [📸 Showcase / Previews](#-showcase--previews)
 
 
@@ -179,6 +180,61 @@ While `AInteractionRelayActor` inherits from `AInteractableActorBase`, certain s
 💡 *Tip: Use visual widgets and animations to represent buttons, switches, levers, and other trigger points—but let the interaction logic be forwarded to the real targets.*
 
 
+---
+## 📦 Creating Custom Interactable Actors
+
+The Modular Interactions Plugin is designed to support full Blueprint-based extension. You can create custom interactable actors without touching C++, and still take full advantage of widget prompts, animations, and plugin-driven interaction behavior.
+
+---
+
+## 🔨 Step 1: Create a New Blueprint
+
+1. In the Content Browser, **right-click** and choose **Blueprint Class**
+2. In the **All Classes** search box, type `InteractableActorBase`
+3. Select `Interactable Actor Base` – this is the base class provided by the plugin
+4. Name your Blueprint something like `BPIA_Terminal`, `BPIA_Lever`, or any name using the optional `BPIA_` prefix to indicate it's a Blueprint Interactable Actor
+
+> 📛 **Naming Tip:** Use the `BPIA_` prefix to stay organized when working with multiple custom interactables.
+> 
+![image 25](https://github.com/user-attachments/assets/e5835cff-f5d2-401f-8db3-2e8e0b253f19)
+![image 26](https://github.com/user-attachments/assets/4e9ad2fe-be44-4e80-9c32-386aec9ad742)
+
+## 🧩 Step 2: Add Custom Interaction Logic
+
+1. Inside your Blueprint, open the **Functions** section
+2. Click **Override** and select `Interact`
+3. Add your custom logic in the graph – this will execute when the player interacts with the actor
+
+![image 27](https://github.com/user-attachments/assets/7d601e54-1a83-45ea-bc66-f624bb546d2e)
+
+> 💡 `Interact` is the core entry point for custom behavior. It is automatically called when interaction is triggered.
+
+## ⚙️ Step 3: Configure Behavior in the Details Panel
+
+Customize your Blueprint instance in the Details Panel:
+
+- **Widget Type** – Choose from Radial, Tooltip, Icon, or Custom
+- **Action Type** – Set to `CustomEvent` to disable built-in logic
+- **Interact Text** – Customize what appears in radial or tooltip widgets
+- **Custom Widget Class** – Assign your own UMG class if using `CustomWidget`
+
+Optional:
+- Enable `bUseAnimation` to play a montage on interact
+- Use `TargetActorToToggle` if you want to toggle another actor’s state
+
+> ⚠️ `PreInteract` is reserved for internal plugin use and **cannot** be overridden in Blueprints.
+
+
+### 🖥 Advanced (Optional)
+
+You **can** override `ShowInteractWidget` and `HideInteractWidget` if you want to add visual effects or logic when the widget appears or disappears. However, the built-in system handles this automatically and usually requires no changes.
+
+
+## 🧪 Step 4: Place and Test
+
+Drag your custom Blueprint into the level and press Play. Interact using your configured input key and verify your logic triggers correctly.
+
+> 🧠 **Tip:** For more complex systems, consider using relay actors to chain multiple interactables or trigger remote behaviors.
 ---
 
 ## 📸 Showcase / Previews
