@@ -201,13 +201,19 @@ The Modular Interactions Plugin is designed to support full Blueprint-based exte
 
 ## 🧩 Step 2: Add Custom Interaction Logic
 
-1. Inside your Blueprint, open the **Functions** section
-2. Click **Override** and select `Interact`
+1. Inside your Blueprint, open the **Functions** section  
+2. Click **Override** and select `Interact`  
 3. Add your custom logic in the graph – this will execute when the player interacts with the actor
 
 ![image 27](https://github.com/user-attachments/assets/7d601e54-1a83-45ea-bc66-f624bb546d2e)
 
-> 💡 `Interact` is the core entry point for custom behavior. It is automatically called when interaction is triggered.
+> 💡 `Interact` is the **core entry point** for custom behavior. It is automatically called by the plugin's system when interaction is triggered.
+
+> ⚠️ The only time `Interact` **is not called automatically** is when your Blueprint Interactable Actor (`BPIA_`) is **controlled by a relay actor** (`BPIAR_`) and that relay has `bRequiresManualTrigger` set to `true`.  
+> In this case, **you must call the `Interact` interface event manually** from within the relay actor.
+
+> This setup allows you to delay or conditionally control when interactions occur, which is especially useful for puzzle logic, remote switches, and multi-step sequences.
+
 
 ## ⚙️ Step 3: Configure Behavior in the Details Panel
 
